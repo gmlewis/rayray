@@ -8,9 +8,10 @@ wgpu:
 	git clone https://github.com/gfx-rs/wgpu-native
 	cd wgpu-native && git checkout 3317a65 && cargo build --release
 	mkdir -p wgpu
-	cp wgpu-native/target/release/* wgpu
+	cp wgpu-native/target/release/libwgpu* wgpu
 	cp wgpu-native/ffi/wgpu.h wgpu
-	cd wgpu && install_name_tool -id "@executable_path/../../vendor/wgpu/libwgpu_native.dylib" libwgpu_native.dylib
+	sudo cp wgpu-native/target/release/libwgpu* /usr/local/lib
+	sudo cp wgpu-native/ffi/wgpu.h /usr/local/include
 
 SHADERC=install.tgz
 shaderc:
