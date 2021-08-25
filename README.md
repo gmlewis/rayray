@@ -55,7 +55,7 @@ either copy or soft link the appropriate `Makefile-macos` or `Makefile-linux`
 to the name `Makefile` and then run the 3 commands:
 
 * make wgpu
-* make sahderc
+* make shaderc
 * make imgui
 
 ## License
