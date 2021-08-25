@@ -48,6 +48,16 @@ just don't set your expectations too high!
 If you'd like to add major features, please fork the project;
 I'd be happy to link to any forks which achieve critical momemtum!
 
+## Dependencies
+
+To build the dependencies in the `vendor` directory, `cd` to the directory and
+either copy or soft link the appropriate `Makefile-macos` or `Makefile-linux`
+to the name `Makefile` and then run the 3 commands:
+
+* make wgpu
+* make sahderc
+* make imgui
+
 ## License
 Licensed under either of
 
