@@ -7,7 +7,7 @@ fn tag_array_type(comptime T: type) type {
 }
 
 fn tag_array(comptime T: type) tag_array_type(T) {
-    comptime const tags = std.meta.fields(std.meta.Tag(T));
+    comptime var tags = std.meta.fields(std.meta.Tag(T));
     comptime var total_len: usize = 0;
     inline for (tags) |t| {
         total_len += t.name.len + 1;
@@ -17,7 +17,7 @@ fn tag_array(comptime T: type) tag_array_type(T) {
     comptime var i: usize = 0;
     comptime var j: usize = 0;
     inline for (tags) |t| {
-        comptime const start = i;
+        comptime var start = i;
         inline for (t.name) |char| {
             name_array[i] = char;
             i += 1;
@@ -31,7 +31,7 @@ fn tag_array(comptime T: type) tag_array_type(T) {
 }
 
 pub fn draw_enum_combo(comptime T: type, self: T) ?std.meta.Tag(T) {
-    var changed = false;
+    // var changed = false;
     const tags = tag_array(T);
 
     // Copy the slice to a null-terminated string for C API

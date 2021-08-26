@@ -43,7 +43,7 @@ pub const Window = struct {
         ) orelse {
             var err_str: [*c]u8 = null;
             const err = c.glfwGetError(&err_str);
-            std.debug.panic("Failed to open window: {} ({})", .{ err, err_str });
+            std.debug.panic("Failed to open window: {d} ({s})", .{ err, err_str });
         };
 
         var width_: c_int = undefined;
@@ -300,10 +300,10 @@ pub const Window = struct {
             self.surface,
             &(c.WGPUSwapChainDescriptor){
                 .usage = c.WGPUTextureUsage_RENDER_ATTACHMENT,
-                .format = c.WGPUTextureFormat._Bgra8Unorm,
+                .format = c.WGPUTextureFormat_Bgra8Unorm,
                 .width = width,
                 .height = height,
-                .present_mode = c.WGPUPresentMode._Fifo,
+                .present_mode = c.WGPUPresentMode_Fifo,
             },
         );
     }

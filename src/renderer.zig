@@ -475,4 +475,7 @@ pub const Renderer = struct {
     }
 };
 
-export fn read_buffer_map_cb(status: c.WGPUBufferMapAsyncStatus, userdata: [*c]u8) void {}
+export fn read_buffer_map_cb(status: c.WGPUBufferMapAsyncStatus, userdata: [*c]u8) void {
+    _ = status;
+    _ = userdata;
+}

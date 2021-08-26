@@ -193,7 +193,7 @@ pub fn new_hex_box(alloc: *std.mem.Allocator) !Scene {
     while (x <= NUM) : (x += 1) {
         var z: i32 = -NUM;
         while (z <= NUM) : (z += 1) {
-            const dy = std.math.sin(@intToFloat(f32, x) / @intToFloat(f32, NUM) * std.math.pi);
+            // const dy = std.math.sin(@intToFloat(f32, x) / @intToFloat(f32, NUM) * std.math.pi);
             var dx: f32 = 0;
             if (@rem(z, 2) == 0) {
                 dx = SIZE / 2;

@@ -40,21 +40,21 @@ const Element = enum {
 };
 
 pub fn from_mol(alloc: *std.mem.Allocator, txt: []const u8) !Scene {
-    var iter = std.mem.split(txt, "\n");
+    var iter = std.mem.split(u8, txt, "\n");
 
     // Ignored header
-    const title = iter.next() orelse std.debug.panic("!", .{});
-    const timestamp = iter.next() orelse std.debug.panic("!", .{});
-    const comment = iter.next() orelse std.debug.panic("!", .{});
+    // const title = iter.next() orelse std.debug.panic("!", .{});
+    // const timestamp = iter.next() orelse std.debug.panic("!", .{});
+    // const comment = iter.next() orelse std.debug.panic("!", .{});
 
     const counts = iter.next() orelse std.debug.panic("!", .{});
-    var count_iter = std.mem.tokenize(counts, " ");
+    var count_iter = std.mem.tokenize(u8, counts, " ");
     const n_atoms = try std.fmt.parseUnsigned(u32, count_iter.next() orelse "0", 10);
     const n_bonds = try std.fmt.parseUnsigned(u32, count_iter.next() orelse "0", 10);
 
     var scene = Scene.new(alloc);
 
-    comptime const num_elems = std.meta.fields(Element).len;
+    comptime var num_elems = std.meta.fields(Element).len;
     var mats: [num_elems]u32 = undefined;
     var i: u32 = 0;
     while (i < num_elems) : (i += 1) {
@@ -72,12 +72,12 @@ pub fn from_mol(alloc: *std.mem.Allocator, txt: []const u8) !Scene {
     i = 0;
     while (i < n_atoms) : (i += 1) {
         const line = iter.next() orelse std.debug.panic("Missing atom\n", .{});
-        var line_iter = std.mem.tokenize(line, " ");
+        var line_iter = std.mem.tokenize(u8, line, " ");
         const x = try std.fmt.parseFloat(f32, line_iter.next() orelse "");
         const y = try std.fmt.parseFloat(f32, line_iter.next() orelse "");
         const z = try std.fmt.parseFloat(f32, line_iter.next() orelse "");
         const elem = line_iter.next() orelse "";
-        const e = elements.get(elem) orelse std.debug.panic("Unknown element {}\n", .{elem});
+        const e = elements.get(elem) orelse std.debug.panic("Unknown element {s}\n", .{elem});
         try scene.shapes.append(
             Shape.new_sphere(.{ .x = x, .y = y, .z = z }, e.radius(), mats[@enumToInt(e)]),
         );
@@ -87,7 +87,7 @@ pub fn from_mol(alloc: *std.mem.Allocator, txt: []const u8) !Scene {
     i = 0;
     while (i < n_bonds) : (i += 1) {
         const line = iter.next() orelse std.debug.panic("Missing bond\n", .{});
-        var line_iter = std.mem.tokenize(line, " ");
+        var line_iter = std.mem.tokenize(u8, line, " ");
         const a = try std.fmt.parseInt(u32, line_iter.next() orelse "", 10);
         const b = try std.fmt.parseInt(u32, line_iter.next() orelse "", 10);
         const n = try std.fmt.parseInt(u32, line_iter.next() orelse "", 10);

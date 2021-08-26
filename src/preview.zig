@@ -261,7 +261,7 @@ pub const Preview = struct {
 
     pub fn render(
         self: *Self,
-        first: bool,
+        _: bool,
         nt: u32,
         cmd_encoder: c.WGPUCommandEncoderId,
     ) !void {

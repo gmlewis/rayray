@@ -17,7 +17,7 @@ pub fn file_contents(arena: *std.heap.ArenaAllocator, comptime name: []const u8)
             return buf;
         },
         .ReleaseSafe, .ReleaseFast, .ReleaseSmall => {
-            comptime const f = @embedFile("../" ++ name);
+            comptime f = @embedFile("../" ++ name);
             return f[0..];
         },
     }

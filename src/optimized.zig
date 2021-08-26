@@ -18,7 +18,7 @@ pub const Optimized = struct {
     initialized: bool = false,
 
     pub fn init(
-        alloc: *std.mem.Allocator,
+        _: *std.mem.Allocator,
         comp_shader: c.WGPUShaderModuleId,
         device: c.WGPUDeviceId,
         uniform_buf: c.WGPUBufferId,
@@ -154,7 +154,7 @@ pub const Optimized = struct {
 
     pub fn render(
         self: *Self,
-        first: bool,
+        _: bool,
         nt: u32,
         cmd_encoder: c.WGPUCommandEncoderId,
     ) !void {

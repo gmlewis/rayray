@@ -8,7 +8,7 @@ const c = @import("c.zig");
 pub const Debounce = struct {
     const Self = @This();
 
-    thread: ?*std.Thread,
+    thread: ?std.Thread,
 
     // The mutex protects all of the variables below
     mutex: std.Thread.Mutex,
@@ -56,9 +56,9 @@ pub const Debounce = struct {
         self.end_time_ms = std.time.milliTimestamp() + dt_ms;
         if (!self.thread_running) {
             if (self.thread) |thread| {
-                thread.wait();
+                thread.join();
             }
-            self.thread = try std.Thread.spawn(self, Self.run);
+            self.thread = try std.Thread.spawn(.{}, Self.run, .{self});
             self.thread_running = true;
         } else {
             // The already-running thread will handle it

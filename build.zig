@@ -1,3 +1,5 @@
+// -*- compile-command: "zig build |& strip-ansi"; -*-
+
 const Builder = @import("std").build.Builder;
 
 pub fn build(b: *Builder) void {

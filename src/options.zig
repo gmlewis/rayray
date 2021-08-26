@@ -33,8 +33,8 @@ pub const Options = struct {
                 } else {
                     if (std.fmt.parseUnsigned(u32, args[i], 10)) |s| {
                         out.total_samples = s;
-                    } else |err| {
-                        std.debug.print("Error: {} is not an integer", .{args[i]});
+                    } else |_| {
+                        std.debug.print("Error: {s} is not an integer", .{args[i]});
                         std.process.exit(1);
                     }
                 }

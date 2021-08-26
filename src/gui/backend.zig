@@ -183,17 +183,17 @@ pub const Backend = struct {
         // Vertex buffers (new!)
         const vertex_buffer_attributes = [_]c.WGPUVertexAttributeDescriptor{
             .{
-                .offset = @byteOffsetOf(c.ImDrawVert, "pos"),
+                .offset = @offsetOf(c.ImDrawVert, "pos"),
                 .format = c.WGPUVertexFormat._Float2,
                 .shader_location = 0,
             },
             .{
-                .offset = @byteOffsetOf(c.ImDrawVert, "uv"),
+                .offset = @offsetOf(c.ImDrawVert, "uv"),
                 .format = c.WGPUVertexFormat._Float2,
                 .shader_location = 1,
             },
             .{
-                .offset = @byteOffsetOf(c.ImDrawVert, "col"),
+                .offset = @offsetOf(c.ImDrawVert, "col"),
                 .format = c.WGPUVertexFormat._Uchar4Norm,
                 .shader_location = 2,
             },
@@ -386,8 +386,8 @@ pub const Backend = struct {
                 },
                 .mip_level_count = 1,
                 .sample_count = 1,
-                .dimension = c.WGPUTextureDimension._D2,
-                .format = c.WGPUTextureFormat._Rgba8Unorm,
+                .dimension = c.WGPUTextureDimension_D2,
+                .format = c.WGPUTextureFormat_Rgba8Unorm,
 
                 .usage = (c.WGPUTextureUsage_COPY_DST |
                     c.WGPUTextureUsage_SAMPLED),
@@ -398,9 +398,9 @@ pub const Backend = struct {
             self.font_tex,
             &(c.WGPUTextureViewDescriptor){
                 .label = "font font view",
-                .dimension = c.WGPUTextureViewDimension._D2,
-                .format = c.WGPUTextureFormat._Rgba8Unorm,
-                .aspect = c.WGPUTextureAspect._All,
+                .dimension = c.WGPUTextureViewDimension_D2,
+                .format = c.WGPUTextureFormat_Rgba8Unorm,
+                .aspect = c.WGPUTextureAspect_All,
                 .base_mip_level = 0,
                 .level_count = 1,
                 .base_array_layer = 0,
@@ -531,8 +531,8 @@ pub const Backend = struct {
                 .attachment = next_texture,
                 .resolve_target = 0,
                 .channel = (c.WGPUPassChannel_Color){
-                    .load_op = c.WGPULoadOp._Load,
-                    .store_op = c.WGPUStoreOp._Store,
+                    .load_op = c.WGPULoadOp_Load,
+                    .store_op = c.WGPUStoreOp_Store,
                     .clear_value = (c.WGPUColor){
                         .r = 0.0,
                         .g = 0.0,

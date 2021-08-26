@@ -10,7 +10,7 @@ pub const AsyncShaderc = struct {
     alloc: *std.mem.Allocator,
 
     mutex: std.Thread.Mutex,
-    thread: *std.Thread,
+    thread: std.Thread,
     cancelled: bool,
 
     device: c.WGPUDeviceId,
@@ -32,12 +32,13 @@ pub const AsyncShaderc = struct {
     }
 
     pub fn deinit(self: *Self) void {
-        self.thread.wait();
+        self.thread.join();
         self.scene.deinit();
     }
 
     pub fn start(self: *Self) !void {
-        self.thread = try std.Thread.spawn(self, Self.run);
+        // self.thread = try std.Thread.spawn(self, Self.run);
+        self.thread = try std.Thread.spawn(.{}, Self.run, .{self});
     }
 
     fn run(self: *Self) void {

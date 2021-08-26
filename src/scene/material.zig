@@ -212,14 +212,14 @@ pub const Material = union(enum) {
             .Diffuse => |m| m.color,
             .Light => |m| m.color,
             .Metal => |m| m.color,
-            .Glass => |m| Color{ .r = 1, .g = 0.5, .b = 0.5 },
+            .Glass => Color{ .r = 1, .g = 0.5, .b = 0.5 },
             .Laser => |m| m.color,
-            .Metaflat => |m| Color{ .r = 1, .g = 0.5, .b = 0.5 },
+            .Metaflat => Color{ .r = 1, .g = 0.5, .b = 0.5 },
         };
     }
 
     pub fn draw_gui(self: *Self) bool {
-        comptime const widgets = @import("../gui/widgets.zig");
+        comptime var widgets = @import("../gui/widgets.zig");
         var changed = false;
         if (widgets.draw_enum_combo(Self, self.*)) |e| {
             // Swap the material type if the combo box returns a new tag
